@@ -4,27 +4,6 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
-                    {% if site.RSS %}
-                    <li>
-                        <a href="{{ "/feed.xml" | prepend: site.baseurl }}">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    {% endif %}
-                    {% if site.twitter_username %}
-                    <li>
-                        <a href="https://twitter.com/{{ site.twitter_username }}">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    {% endif %}
-
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
                     {% if site.zhihu_username %}
                     <li>
@@ -46,11 +25,9 @@
                         </a>
                     </li>
                     {% endif %}
-
-
-                    {% if site.facebook_username %}
+                    {% if site.csdn_username %}
                     <li>
-                        <a target="_blank" href="https://www.facebook.com/{{ site.facebook_username }}">
+                        <a target="_blank" href="https://blog.csdn.net/{{ site.csdn_username }}">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -72,11 +49,11 @@
                 <p class="copyright text-muted">
                     Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
                     <br>
-                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    Theme by <a href="http://passiony.github.io">Passion</a> |
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="91px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                        src="https://ghbtns.com/github-btn.html?user=passiony&repo=passiony.github.io&type=star&count=true" >
                     </iframe>
                 </p>
             </div>

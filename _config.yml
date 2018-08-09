@@ -2,7 +2,7 @@
 title: Passion Blog
 SEOTitle: Passion的博客 | Passion Blog
 header-img: img/home-bg.jpg
-email: passion@gmail.com
+email: 563129582@qq.com
 description: ""
 keyword: ""
 url: "http://passiony.github.io"              # your host, for absolute URL
@@ -12,13 +12,10 @@ baseurl: "/passiony.github.io"         # for example, '/blog' if your blog hoste
 
 # SNS settings
 RSS: false
-weibo_username:     passion
-zhihu_username:     passion
-github_username:    passion
-#twitter_username:  passion
-facebook_username:  passion
-
-
+weibo_username:     passiony
+github_username:    passiony
+csdn_username:      yupu56
+zhihu_username:     yupu56
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
@@ -69,7 +66,7 @@ ga_domain: passion.io
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Unity游戏开发爱好者"
-sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/avatar_passion.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
@@ -88,13 +85,10 @@ friends: [
         title: "CSDN",
         href: "https://blog.csdn.net/yupu56"
     },{
-        title: "Bar",
-        href: "#"
+        title: "GitHub",
+        href: "http://passiony.github.io"
     },{
-        title: "Foo",
-        href: "#"
-    },{
-        title: "SEO",
-        href: "#"
+        title: "Sina",
+        href: "http://weibo.com/passiony"
     }
 ]
