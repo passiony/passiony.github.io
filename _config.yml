@@ -12,7 +12,7 @@ baseurl: "/passiony.github.io"         # for example, '/blog' if your blog hoste
 
 # SNS settings
 RSS: false
-weibo_username:     passiony
+weibo_username:     passionyu
 github_username:    passiony
 csdn_username:      yupu56
 zhihu_username:     yupu56
