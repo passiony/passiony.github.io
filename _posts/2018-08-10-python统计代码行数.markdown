@@ -1,0 +1,331 @@
+---
+layout:     post
+title:      "统计代码行数"
+subtitle:   "注释，代码，python"
+date:       2018-08-10
+author:     "Passion"
+header-img: "img/post-bg-js-version.jpg"
+tags:
+    - python
+    - C++
+---
+
+## 目录
+
+- [问题](#问题)
+- [分析](#分析)
+- [知识点](#知识点)
+- [简化版](#简化版)
+- [多行注释版](#多行注释版)
+- [统计其他语言](#统计其他语言)
+- [补充：统计代码和使用方法](#补充统计代码和使用方法)
+
+
+## 问题
+
+设计一个程序，用于统计一个项目中的代码行数，包括文件个数，代码行数，注释行数，空行行数。尽量设计灵活一点可以通过输入不同参数来统计不同语言的项目，例如：
+
+```py
+# type用于指定文件类型
+python counter.py --type python
+```
+
+输出：
+```
+files:10
+code_lines:200
+comments:100
+blanks:20
+```
+
+## 分析
+这是一个看起来很简单，但做起来有点复杂的设计题，我们可以把问题化小，只要能正确统计一个文件的代码行数，那么统计一个目录也不成问题，其中最复杂的就是关于多行注释，以 Python 为例，注释代码行有如下几种情况：
+
+
+* 1.井号开头的单行注释
+```py
+# 单行注释`
+```
+
+* 2.多行注释符在同一行的情况
+```py
+"""这是多行注释"""
+'''这也是多行注释'''
+```
+
+* 3.多行注释符
+```py
+"""
+这3行都是注释符
+"""
+```
+
+我们的思路采取逐行解析的方式，多行注释需要一个额外的标识符in_multi_comment 来标识当前行是不是处于多行注释符当中，默认为 False，多行注释开始时，置为 True，遇到下一个多行注释符时置为 False。从多行注释开始符号直到下一个结束符号之间的代码都应该属于注释行。
+
+## 知识点
+如何正确读取文件，读出的文件当字符串处理时，字符串的常用方法
+
+## 简化版
+我们逐步进行迭代，先实现一个简化版程序，只统计Python代码的单文件，而且不考虑多行注释的情况，这是任何入门 Python 的人都能实现的功能。关键地方是把每一行读出来之后，先用 strip() 方法把字符串两边的空格、回车去掉
+```py
+# -*- coding: utf-8 -*-
+"""
+只能统计单行注释的py文件
+"""
+def parse(path):
+    comments = 0
+    blanks = 0
+    codes = 0
+    with open(path, encoding='utf-8') as f:
+        for line in f.readlines():
+            line = line.strip()
+            if line == "":
+                blanks += 1
+            elif line.startswith("#"):
+                comments += 1
+            else:
+                codes += 1
+    return {"comments": comments, "blanks": blanks, "codes": codes}
+
+if __name__ == '__main__':
+    print(parse("xxx.py"))
+```
+
+## 多行注释版
+如果只能统计单行注释的代码，意义并不大，要解决多行注释的统计才能算是一个真正的代码统计器
+```py
+# -*- coding: utf-8 -*-
+"""
+可以统计包含有多行注释的py文件
+"""
+def parse(path):
+    in_multi_comment = False  # 多行注释符标识符号
+    comments = 0
+    blanks = 0
+    codes = 0
+    with open(path, encoding="utf-8") as f:
+        for line in f.readlines():
+            line = line.strip()
+
+            # 多行注释中的空行当做注释处理
+            if line == "" and not in_multi_comment:
+                blanks += 1
+            # 注释有4种
+            # 1. # 井号开头的单行注释
+            # 2. 多行注释符在同一行的情况
+            # 3. 多行注释符之间的行
+            elif line.startswith("#") or \
+                            (line.startswith('"""') and line.endswith('"""') and len(line)) > 3 or \
+                    (line.startswith("'''") and line.endswith("'''") and len(line) > 3) or \
+                    (in_multi_comment and not (line.startswith('"""') or line.startswith("'''"))):
+                comments += 1
+            # 4. 多行注释符的开始行和结束行
+            elif line.startswith('"""') or line.startswith("'''"):
+                in_multi_comment = not in_multi_comment
+                comments += 1
+            else:
+                codes += 1
+    return {"comments": comments, "blanks": blanks, "codes": codes}
+if __name__ == '__main__':
+    print(parse("xxx.py"))
+```
+
+上面的第4种情况，遇到多行注释符号时，in_multi_comment 标识符进行取反操作是关键操作，而不是单纯地置为 False 或 True，第一次遇到 """ 时为True，第二次遇到 """ 就是多行注释的结束符，取反为False，以此类推，第三次又是开始，取反又是True。
+
+## 统计其他语言
+那么判断其它语言是不是要重新写一个解析函数呢？如果你仔细观察的话，多行注释的4种情况可以抽象出4个判断条件，因为大部分语言都有单行注释，多行注释，只是他们的符号不一样而已。
+
+```py
+    """
+    可以统计单个文件
+    :param path:
+    :return:
+    """
+def parse(path):
+    in_multi_comment = False  # 多行注释符标识符号
+    comments = 0
+    blanks = 0
+    codes = 0
+    exstansion = os.path.splitext(path)[1]
+
+    with io.open(path, encoding="utf-8") as f:
+        for line in f.readlines():
+            line = line.strip()
+
+            CONF = {".py": {"start_comment": ['"""', "'''"], "end_comment": ['"""', "'''"], "single": "#"},
+                    ".java": {"start_comment": ["/*"], "end_comment": ["*/"], "single": "//"},
+                    ".cs": {"start_comment": ["/*"], "end_comment": ["*/"], "single": "//"},
+                    ".c": {"start_comment": ["/*"], "end_comment": ["*/"], "single": "//"},
+                    ".lua": {"start_comment": ["--[["], "end_comment": ["--]]"], "single": "--"},
+                    ".cpp": {"start_comment": ["/*"], "end_comment": ["*/"], "single": "//"}}
+
+            if(not CONF.has_key(exstansion)):
+                continue
+
+            start_comment = CONF.get(exstansion).get("start_comment")
+            end_comment = CONF.get(exstansion).get("end_comment")
+            cond2 = False
+            cond3 = False
+            cond4 = False
+            for index, item in enumerate(start_comment):
+                cond2 = line.startswith(item) and line.endswith(end_comment[index]) and len(line) > len(item)
+                if cond2:
+                    break
+            for item in end_comment:
+                if line.startswith(item):
+                    cond3 = True
+                    break
+
+            for item in start_comment + end_comment:
+                if line.startswith(item):
+                    cond4 = True
+                    break
+
+            if line == "" and not in_multi_comment:
+                blanks += 1
+            # 注释有4种
+            # 1. # 井号开头的单行注释
+            # 2. 多行注释符在同一行的情况
+            # 3. 多行注释符之间的行
+            elif line.startswith(CONF.get(exstansion).get("single")) or cond2 or (in_multi_comment and not cond3):
+                comments += 1
+            # 4. 多行注释符分布在多行时，开始行和结束行
+            elif cond4:
+                in_multi_comment = not in_multi_comment
+                comments += 1
+            else:
+                codes += 1
+
+    return {"comments": comments, "blanks": blanks, "codes": codes}
+```
+
+只需要一个配置常量把所有语言的单行、多行注释的符号标记出来，对应出 cond1到cond4几种情况就ok。剩下的任务就是解析多个文件，可以用 os.walk 方法。
+
+```py
+    """
+    可以统计目录或者某个文件
+    :param path:
+    :return:
+    """
+def counter(path):
+    if os.path.isdir(path):
+        comments, blanks, codes = 0, 0, 0
+        list_dirs = os.walk(path)
+        for root, dirs, files in list_dirs:
+            for f in files:
+                file_path = os.path.join(root, f)
+                stats = parse(file_path)
+                comments += stats.get("comments")
+                blanks += stats.get("blanks")
+                codes += stats.get("codes")
+        return {"comments": comments, "blanks": blanks, "codes": codes}
+    else:
+        return parse(path)
+```
+
+当然，想要把这个程序做完善，还有很多工作要多，包括命令行解析，根据指定参数只解析某一种语言。
+
+---
+
+## 补充：统计代码和使用方法
+* 1.新建counter.py,把下方法个代码粘贴进去。
+* 2.把脚本粘贴到制定文件夹下。
+* 2.使用cmd或者terminal执行命令：`python counter.py`
+
+
+```py
+# -*- coding: utf-8 -*-
+"""
+可以统计包含有多行注释的py文件
+"""
+
+import sys
+import io
+import os
+import os.path
+
+
+"""
+统计目录下所有文件或单个文件
+"""
+def counter(path):
+    if os.path.isdir(path):
+        comments, blanks, codes = 0, 0, 0
+        list_dirs = os.walk(path)
+        for root, dirs, files in list_dirs:
+            for f in files:
+                file_path = os.path.join(root, f)
+                stats = parse(file_path)
+                comments += stats.get("comments")
+                blanks += stats.get("blanks")
+                codes += stats.get("codes")
+        return {"comments": comments, "blanks": blanks, "codes": codes}
+    else:
+        return parse(path)
+
+
+"""
+统计单个文件
+"""
+def parse(path):
+    in_multi_comment = False  # 多行注释符标识符号
+    comments = 0
+    blanks = 0
+    codes = 0
+    exstansion = os.path.splitext(path)[1]
+
+    with io.open(path, encoding="utf-8") as f:
+        for line in f.readlines():
+            line = line.strip()
+
+            CONF = {".py": {"start_comment": ['"""', "'''"], "end_comment": ['"""', "'''"], "single": "#"},
+                    ".java": {"start_comment": ["/*"], "end_comment": ["*/"], "single": "//"},
+                    ".cs": {"start_comment": ["/*"], "end_comment": ["*/"], "single": "//"},
+                    ".c": {"start_comment": ["/*"], "end_comment": ["*/"], "single": "//"},
+                    ".lua": {"start_comment": ["--[["], "end_comment": ["--]]"], "single": "--"},
+                    ".cpp": {"start_comment": ["/*"], "end_comment": ["*/"], "single": "//"}}
+
+            if(not CONF.has_key(exstansion)):
+                continue
+
+            start_comment = CONF.get(exstansion).get("start_comment")
+            end_comment = CONF.get(exstansion).get("end_comment")
+            cond2 = False
+            cond3 = False
+            cond4 = False
+            for index, item in enumerate(start_comment):
+                cond2 = line.startswith(item) and line.endswith(end_comment[index]) and len(line) > len(item)
+                if cond2:
+                    break
+            for item in end_comment:
+                if line.startswith(item):
+                    cond3 = True
+                    break
+
+            for item in start_comment + end_comment:
+                if line.startswith(item):
+                    cond4 = True
+                    break
+
+            if line == "" and not in_multi_comment:
+                blanks += 1
+            # 注释有4种
+            # 1. # 井号开头的单行注释
+            # 2. 多行注释符在同一行的情况
+            # 3. 多行注释符之间的行
+            elif line.startswith(CONF.get(exstansion).get("single")) or cond2 or (in_multi_comment and not cond3):
+                comments += 1
+            # 4. 多行注释符分布在多行时，开始行和结束行
+            elif cond4:
+                in_multi_comment = not in_multi_comment
+                comments += 1
+            else:
+                codes += 1
+
+    return {"comments": comments, "blanks": blanks, "codes": codes}
+
+
+
+if __name__ == '__main__':
+    print counter(sys.path[0])
+```
