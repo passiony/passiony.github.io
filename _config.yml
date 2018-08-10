@@ -16,6 +16,7 @@ weibo_username:     passionyu
 github_username:    passiony
 csdn_username:      yupu56
 zhihu_username:     yupu56
+jianshu_username:   u/2848ffcca5eb
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
