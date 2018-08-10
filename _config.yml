@@ -78,7 +78,7 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 
 
 # Friends
-links: [
+friends: [
     {
         title: "简书",
         href: "https://www.jianshu.com/u/2848ffcca5eb"
