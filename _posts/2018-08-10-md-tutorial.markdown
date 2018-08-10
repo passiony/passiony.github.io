@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Markdown Tutorial"
-subtitle:   "markdown"
+subtitle:   "markdown,语法"
 date:       2018-08-10
 author:     "Passion"
 header-img: "img/post-bg-js-version.jpg"
@@ -10,7 +10,7 @@ tags:
     - tutorial
 ---
 
-Foreword
+## Foreword
 
 MarkDown 语法是当下非常流行的文本标记语言，它语法简便排版优美，深受有文字处理和排版需求的人士的喜爱。如当下各种博客也支持MarkDown语法编辑博客，著名的分布式系统社群 github 也用的MarkDown语法来让用户写 readme 文件。可见MarkDown语法在当下的使用是非常多的。
 
@@ -18,22 +18,20 @@ MarkDown 语法是当下非常流行的文本标记语言，它语法简便排�
 
 ---
 
-- 目录
-    - [标题 Headers](#标题-headers)
-    - [文字斜体和加粗 Bold&Italic](#文字斜体和加粗-bolditalic)
-    - [列表 List](#列表-list)
-        - [1.无序的列表](#1无序的列表)
-        - [2.有序的列表](#2有序的列表)
-        - [3.复选框列表](#3复选框列表)
-    - [图片 Image](#图片-image)
-    - [连接 Links](#连接-links)
-    - [引用：Blockquotes](#引用blockquotes)
-    - [内联代码 inline code](#内联代码-inline-code)
-    - [多行内联代码 Multi-line code](#多行内联代码-multi-line-code)
-    - [加删除线 Strikethrough](#加删除线-strikethrough)
-    - [横向分割线 Horizontal Rules](#横向分割线-horizontal-rules)
-    - [MarkDown的注释](#markdown的注释)
-    - [表格 Form](#表格-form)
+## Catalog
+
+1.  [标题 Headers](#标题-headers)
+2.  [文字斜体和加粗 Bold&Italic](#文字斜体和加粗-bolditalic)
+3.  [列表 List](#列表-list)
+4.  [图片 Image](#图片-image)
+5.  [连接 Links](#连接-links)
+6.  [引用：Blockquotes](#引用blockquotes)
+7.  [内联代码 inline code](#内联代码-inline-code)
+8.  [多行内联代码 Multi-line code](#多行内联代码-multi-line-code)
+9.  [加删除线 Strikethrough](#加删除线-strikethrough)
+10. [横向分割线 Horizontal Rules](#横向分割线-horizontal-rules)
+11. [MarkDown的注释](#markdown的注释)
+12. [表格 Form](#表格-form)
 
 
 ## 标题 Headers
