@@ -84,14 +84,14 @@ pil中转换图片格式非常简单(转换图片模式是另一个概念，不�
 #### 拷贝，粘贴，合并
 
 ```py
-box = (100,100,500,500)#设置要拷贝的区域  
-  
+box=(100,100,500,500)#设置要拷贝的区域  
+
 #将im表示的图片对象拷贝到region中，大小为(400*400)像素。这个region可以用来后续的操作(region其实就是一个Image对象)，box变量是一个四元组(左，上，右，下)。  
-region = im.crop(box)  
-  
-region = region.transpose(Image.ROTATE_180)
+region=im.crop(box)
+
+region=region.transpose(Image.ROTATE_180)
 #从字面上就可以看出，先把region中的Image反转180度，然后再放回到region中。  
-im.paste(region, box)#粘贴box大小的region到原先的图片对象中。 
+im.paste(region,box)#粘贴box大小的region到原先的图片对象中。 
  
 box = (100,100,500,500)#设置要拷贝的区域
 
@@ -130,16 +130,13 @@ im = Image.merge("RGB", (b, g, r))#将b,r两个通道进行翻转。
 
  
 
-
 互换红蓝通道后的合成图
 
- 
 
 #### 几何转变
 几何转变提供resize,rotate等方法，用以重定义图片大小，对图片进行旋转等操作，在实际应用中比较广泛。
 
 如
-
 ```py
 out = img.resize((128, 128))#resize成128*128像素大小。  
 out = img.rotate(45)#逆时针旋转45度  
@@ -171,8 +168,6 @@ import ImageFilter
 out = im.filter(ImageFilter.DETAIL)
 ```
 
- 
-
 直接操作像素点
 不但可以对每个像素点进行操作，而且，每一个通道都可以独立的进行操作。比如，将每个像素点的亮度(不知道有没有更专业的词)增大20%
 
@@ -182,7 +177,6 @@ out = img.point(lambda i : i * 1.2)#注意这里用到一个匿名函数(那个�
 ```
 
 对每个点都做20%的增强
-
 
 
 如上边的那个例子，我们可以将一个RGB模式的图分离成三个通道的层
@@ -226,7 +220,6 @@ img = Image.open(StringIO.StringIO(buffer))
 ```
 
 (文中很多内容来自pil的handbook，但是原手册比较学院派，没有一张图片来进行说明，因此不免枯燥，我给每个小例子都加上一个真实的图片作为说明，希望看起来不那没抽象。)
-
 
 
 当然，PIL的功能远不止这些，由于篇幅原因，我这次先写这么多吧，后面会给出PIL中各个模块中函数的详细使用说明，同时尽量配以实图来说明。
