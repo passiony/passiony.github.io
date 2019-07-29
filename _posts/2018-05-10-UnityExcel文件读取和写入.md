@@ -16,7 +16,7 @@ tags:
 但是在使用的过程中还是碰到了不少的问题，在这里总结一下，希望能对看到此处的朋友一个帮助。
 
 ## 二.Excel的读取
-需要加入库文件 Excel.dll 和ICSharpCode.SharpZipLib库文件，官方链接 http://exceldatareader.codeplex.com/
+需要加入库文件 Excel.dll 和ICSharpCode.SharpZipLib库文件，官方链接 [http://exceldatareader.codeplex.com/](http://exceldatareader.codeplex.com/)
 
 
 #### 需要添加的命名空间
@@ -90,7 +90,7 @@ public class ExcelAccess
 好了，Excel的读取就到这里。接下来讲一下Excel 的写入，怎么生成一个Excel文件，并把数组或字典中的数据写入Excel中呢？
 
 ## 三.Excel 的写入
-此时需要一个Excel.dll的姐妹，EPPlus.dll 官方链接 https://epplus.codeplex.com/releases/view/118053
+此时需要一个Excel.dll的姐妹，EPPlus.dll 官方链接 [https://epplus.codeplex.com/releases/view/118053](https://epplus.codeplex.com/releases/view/118053)
 
 使用方法在官方的文档中都有，这里只贴出我的实现方式。
 
@@ -156,4 +156,4 @@ public class ExcelAccess
 把上面的数据换成你自己的数组和字典遍历就OK了。欢迎大神指教。
 
 由于大家遇到问题较多，特附上工程地址
-Git地址：https://git.oschina.net/passionyu/ExcelReadWrite.git
+Git地址：[https://git.oschina.net/passionyu/ExcelReadWrite.git](https://git.oschina.net/passionyu/ExcelReadWrite.git)
