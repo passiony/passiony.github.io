@@ -73,7 +73,7 @@ im=Image.open('filename')
 ```
 
 此后，一切关于图片的操作均基于这个对象。
-
+![](https://img-blog.csdn.net/20160106190658068)
 
 打开后，我们可以查看一些图片信息，如im.format, im.size, im.mode等。调用im.show()会在图片查看工具中显示当前操作的image对象，这个跟个人的系统有关系，我系统中默认是用Windows Picture and Fax Viewer打开的。这个方法用来查看临时的图片效果。
 
@@ -101,7 +101,7 @@ region = im.crop(box)
 region = region.transpose(Image.ROTATE_180)#从字面上就可以看出，先把region中的Image反转180度，然后再放回到region中。
 im.paste(region, box)#粘贴box大小的region到原先的图片对象中。
 ```
-
+![](https://img-blog.csdn.net/20160106190730589)
 
 前面说过，每一个RGB都是由三个通道的灰度图叠加的，所以pil提供了将这三个通道分离的方法
 
@@ -119,19 +119,16 @@ im = Image.merge("RGB", (b, g, r))#将b,r两个通道进行翻转。
 ```
 
 红色通道的灰度图
-
-
+![](https://img-blog.csdn.net/20160106190838479)
 
 绿色通道的灰度图
-
-
+![](https://img-blog.csdn.net/20160106190856092)
 
 蓝色通道的灰度图
-
- 
+![](https://img-blog.csdn.net/20160106190913202)
 
 互换红蓝通道后的合成图
-
+![](https://img-blog.csdn.net/20160106190945170)
 
 #### 几何转变
 几何转变提供resize,rotate等方法，用以重定义图片大小，对图片进行旋转等操作，在实际应用中比较广泛。
@@ -145,12 +142,10 @@ out = img.rotate(45)#逆时针旋转45度
 ```
 
 逆时针45度
-
-
+![](https://img-blog.csdn.net/20160106191721870)
 
 镜面效果，左右翻转
-
-
+![](https://img-blog.csdn.net/20160106191801915)
 
 transpose()方法预定义了一些旋转方式，如
 左右反转，上下翻转，逆时针旋转(90,180,270)度等，非常方便，rotate()和transpose()方法在表现上没有任何不同。
@@ -168,6 +163,8 @@ import ImageFilter
 out = im.filter(ImageFilter.DETAIL)
 ```
 
+![](https://img-blog.csdn.net/20160107083555198)
+
 直接操作像素点
 不但可以对每个像素点进行操作，而且，每一个通道都可以独立的进行操作。比如，将每个像素点的亮度(不知道有没有更专业的词)增大20%
 
@@ -176,6 +173,7 @@ out = img.point(lambda i : i * 1.2)#注意这里用到一个匿名函数(
 out = img.point(lambda i : i * 1.2)#注意这里用到一个匿名函数(那个可以把i的1.2倍返回的函数)
 ```
 
+![](https://img-blog.csdn.net/20160107083643639)
 对每个点都做20%的增强
 
 
@@ -199,7 +197,7 @@ enh = ImageEnhance.Contrast(im)
 enh.ehhance(1.5).show("50% more contrast")
 ```
 
-
+![](https://img-blog.csdn.net/20160107083744627)
 读写图片的更多方式
 通常，我们使用open方法进行图片的打开操作。但是这不是唯一的方式。完全可以跟python的IO整合起来。如
 
