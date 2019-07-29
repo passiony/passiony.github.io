@@ -2,7 +2,7 @@
 layout:     post
 title:      "统计代码行数"
 subtitle:   "注释，代码，python"
-date:       2017-08-10
+date:       2017-09-10
 author:     "Passion"
 header-img: "img/post-bg-js-version.jpg"
 tags:
