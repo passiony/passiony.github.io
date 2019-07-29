@@ -2,7 +2,7 @@
 layout:     post
 title:      "Markdown Tutorial"
 subtitle:   "markdown,语法"
-date:       2018-08-10
+date:       2017-08-10
 author:     "Passion"
 header-img: "img/post-bg-js-version.jpg"
 tags:
